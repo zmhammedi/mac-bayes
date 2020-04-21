@@ -1,0 +1,381 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2020
+
+% ready for submission
+% \usepackage{neurips_2020}
+
+% to compile a preprint version, e.g., for submission to arZiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2020}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2020}
+
+% to avoid loading the natbib package, add option nonatbib:
+\usepackage[final]{neurips_2020}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+
+
+\usepackage{amsthm}       % blackboard math symbols
+\usepackage{amssymb}       % blackboard math symbols
+\usepackage{mathtools}       % blackboard math symbols
+\input{declarations.tex}
+\input{packages.tex}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{comment}
+\usepackage{bm}
+\usepackage{upgreek}
+\setlength{\marginparwidth}{10ex} 
+\setlength{\marginparsep}{5mm}
+\usepackage{todonotes}
+\usepackage{bbding}
+\usepackage{booktabs}
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
+\let\norm\undefined
+\let\set\undefined
+\let\floor\undefined
+\let\ceil\undefined
+\usepackage{notation}
+\usepackage{bm}
+\usetikzlibrary{patterns,snakes}
+\DeclareMathOperator{\sub}{\mathscr{G}}
+\let\footnotetitle\thanks
+\DeclareRobustCommand{\VAN}[3]{#2} % proper Dutch 'van/de' capitalisation
+\usepackage[mathscr]{euscript}
+\renewcommand{\cN}{\mathscr{N}}
+\newcommand{\drel}{\ensuremath{d_{\text{\sc rel}}}}
+\newcommand{\relset}{\ensuremath{{\cal D}_{\text{\sc rel}}}}
+\newcommand{\srel}{\ensuremath{\sigma^2_{\text{\sc rel}}}}
+\newcommand{\sirrel}{\ensuremath{\sigma^2_{\text{\sc irr}}}}
+\makeatother
+
+
+\renewcommand{\P}{\mathbf{P}}
+\newcommand{\ro}{\uprho}
+\newcommand{\hro}{\what{\uprho}}
+\renewcommand{\erm}{\textsc{erm}}
+
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+	\pushQED{\qed}%
+	\normalfont \topsep6\p@\@plus6\p@\relax
+	\trivlist
+	\item[%
+	\hskip\labelsep
+	\normalfont\bfseries % was \itshape
+	#1%
+%	\@addpunct{}% remove this if you don't want punctuation
+	]\ignorespaces
+}{%
+	\popQED\endtrivlist\@endpefalse
+}
+\let\qed\relax % avoid a warning
+\DeclareRobustCommand{\qed}{%
+	\ifmmode \mathqed
+	\else
+	\leavevmode\unskip\penalty\@M\hbox{}\nobreak\hfill%\hspace{.5em minus .1em}% was 
+	\hbox{\qedsymbol}%
+	\fi
+}
+\makeatother
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+
+
+
+\title{Second Bound}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeZ to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeZ puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+	% \And
+	% Coauthor \\
+	% Affiliation \\
+	% Address \\
+	% \texttt{email} \\
+	% \AND
+	% Coauthor \\
+	% Affiliation \\
+	% Address \\
+	% \texttt{email} \\
+	% \And
+	% Coauthor \\
+	% Affiliation \\
+	% Address \\
+	% \texttt{email} \\
+	% \And
+	% Coauthor \\
+	% Affiliation \\
+	% Address \\
+	% \texttt{email} \\
+}
+
+\begin{document}
+	
+
+
+\section{Preliminaries}
+For variables $Z_1,\dots, Z_n$ in some set $\cZ$, we denote $Z^n \coloneqq (Z_1,\dots,Z_n)\in \cZ^{n}$, and for $i \in[n]$,
+\begin{align}
+Z^{n}_{\smallsetminus i} \coloneqq (Z_1,\dots, Z_{i-1}, Z_{i+1}, \dots, Z_n) \in \cZ^{n-1}. 
+\end{align} 
+Given a loss function $\ell\colon \cH \times \cZ \rightarrow \reals$, we denote by $L(h) \coloneqq \E_{z\sim P_Z}[\ell(h,z)]$, for $h\in \cH$, where $P_Z$ is the marginal distribution of $Z$. For any distribution $\ro$ on $\cH$, we write $L(\ro)\coloneqq \E_{h\sim \ro}[L(h)]$. We denote by $\what L(h)$ and $\what L(\ro)$ the empirical counterparts of $L(h)$ and $L(\ro)$, respectively.
+
+
+\section{Main Bounds}
+\begin{theorem}
+	\label{thm:KL}
+	If the loss $\ell$ takes values in $[0,1]$, then for any posterior $ \ro \colon \bigcup_{i=1}^n \cZ^i \rightarrow \triangle( \cH)$, with $\hro_i \coloneqq  \ro(Z^n_{\smallsetminus i})$ and $\hro=  \ro(Z^n) $, we have
+	\begin{align}
+	{\bf E}_{Z^n}  \left[ \kl(\what{L}(\hro) \| L(\hro))\right] \leq 
+	{\bf E}_{Z^n } \left[\frac{
+		\sum_{i=1}^n \KL(\hro \| \hro_i)+1}{n} \right],
+	\end{align}
+\end{theorem}
+
+\begin{theorem}
+	\label{thm:VP}
+	Let $\eta\in]0,1[$ and $\vartheta(\eta) := 
+	(- \ln (1-\eta) - \eta)/\eta^2$. If the loss $\ell$ takes values in $[0,1]$, then for any posterior $ \ro \colon \bigcup_{i=1}^n \cZ^i \rightarrow \triangle( \cH)$, with $\hro_i \coloneqq  \ro(Z^n_{\smallsetminus i})$ and $\hro=  \ro(Z^n) $, we have
+	\begin{gather} \label{eq:bound}
+	\E_{Z^n}\left[ L(\hro) - \what L(\hro)\right] \leq  \E_{Z^n}  \left[\eta \vartheta(\eta) \what V(\hro) + \frac{\sum_{i=1}^n\KL(\hro \| \hro_{i})}{\eta \cdot  n}  \right],\\
+	\text{where} \quad \quad  \what V(\hro) \coloneqq  \frac{1}{n} \sum_{i=1}^n \E_{h\sim \hro} \left[ \left(\ell(h, Z_i) - \E_{h'\sim \hro_i}[\ell(h',Z_i)]\right)^2 \right]. \label{eq:theV}
+	\end{gather}
+\end{theorem}
+
+
+
+\section{Detailed Analysis}
+\paragraph{ESI Notation.} Let $\eta>0$, and $X$, $Y$ be any two random variables. We define
+	\begin{align}\label{eq:esi}
+	X \stochleq_{\eta} \  Y  \ \ \iff \ \ X -Y\stochleq_{\eta} \  0  \ \ \iff \ \ \E \left[e^{\eta (X- Y)} \right] \leq 1.
+	\end{align}
+%We can extend the above definition to the case where $\eta=\hat{\eta}$ is also a random variable, in which case the expectation in \eqref{eq:esi} needs to be replaced by the expectation over the joint distribution of ($X$, $Y$, $\hat\eta$). When no ambiguity can arise, we omit $D$ from the ESI notation. 
+When $\eta=1$, we simply write $X \stochleq Y$ (\emph{i.e.}~we ommit the subscript $\eta$). Besides simplifying notation, ESIs are useful in that they  simultaneously capture ``with high probability'' and ``in expectation'' results (the proofs of the next three propositions can be found in \citep{mhammedi2019pac}):
+%\begin{proposition}{\bf  [ESI Implications]} \label{prop:drop} 
+%	For fixed $\eta > 0$, if $X \stochleq_{\eta} Y$ then $\E [X] \leq \E[Y]$. 
+%	For both fixed and random $\hat\eta$, if $X \stochleq_{\hat\eta} Y$, then $\forall \delta \in]0,1[$, $X\leq Y + (-\ln \delta)/\hat \eta$, with probability at least $1-\delta$.
+%\end{proposition}
+\begin{proposition} \label{prop:drop} 
+	For fixed $\eta > 0$, if $X \stochleq_{\eta} Y$ then (a) $\E [X] \leq \E[Y]$; and (b) for all $\delta \in]0,1[$, $X\leq Y + (-\ln \delta)/ \eta$, with probability at least $1-\delta$.
+\end{proposition}
+The next result is on the additivity property of ESI: 
+\begin{proposition}\label{prop:Trans} 
+ Suppose now that $Z_1, \ldots, Z_n$ are i.i.d.~and let  $\Psi \colon \cZ \times \bigcup_{i=1}^n \cZ^i \rightarrow \reals$ be any real-valued function. If for some $\eta>0$, $\Psi(Z_i) \stochleq_\eta 0$, for all $i \in [n]$, then $\sum_{i=1}^n \Psi(Z_i) \stochleq_{\eta} 0$.
+\end{proposition}
+We now give the Donsker-Varadhan variational formula expressed in ESI form: \begin{proposition} \label{prop:donsker}
+	Fix $\eta > 0$ and let $\{X^h: h \in \cH\}$ be any family of random variables such that for all $h \in \cH$, $X^h \stochleq_{\eta} 0$. Let $\ro_0$ be any prior distribution on $\cH$ and let $\ro \colon \bigcup_{i=1}^n \cZ^{i} \rightarrow \triangle(\cH)$ be a learning algorithm.  We have, for $\hro = \ro(Z^n)$,
+	\begin{align} \E_{h \sim \hro}[X^{h}] \stochleq_{\eta} \frac{\KL(\hro \| \ro_0)}{\eta}. \label{eq:PACBayes} \end{align} 
+\end{proposition}
+The following lemma will be key in the proofs of our bounds:
+\begin{lemma}
+	\label{lemma:mainlem}
+	Let $\{\Eff^{  h}_{i}\colon \cZ^n \rightarrow \reals \mid i\in[n], h \in  \cH \}$ be any collection of random variables satisfying, \begin{align}  \Eff^{h}_{i}(z_1,\dots, z_{i-1}, Z_i, z_{i+1},\dots, z_n) \stochleq 0,\quad \text{for all $i\in[n]$, $h \in  \cH$, and $z^n_{\smallsetminus i} \in \cZ^{n-1}$.} \label{eq:assum00}\end{align}
+	Then, for any posterior $  \ro \colon \bigcup_{i=1}^n \cZ^i \rightarrow \triangle( \cH)$ with $\hro_i \coloneqq  \ro(Z^n_{\smallsetminus i})$, $i\in [n]$, and $\hro=  \ro(Z^n)$:
+	\begin{align}
+	\E_{Z^n}\left[ \frac{1}{n}\sum_{i=1}^n  \E_{ h \sim \hro}  \left[ \Eff^{  h}_{i}(Z^n)\right]\right] \leq 	 \E_{Z^n}\left[ \frac{\sum_{i=1}^n\KL(\hro \| \hro_{i})}{ n} \right].
+	\end{align}
+\end{lemma}
+\begin{proof} Let $i\in[n]$ and $Z^{(i)}_1, \dots, Z^{(i)}_n$ be i.i.d.~copies of $Z_1, \dots, Z_n$. Applying Proposition~\ref{prop:donsker} to \eqref{eq:assum00} with $i\in [n]$, prior $\hro^{(i)}_{i} \coloneqq  \hro(Z^{(i)}_1, \dots, Z^{(i)}_{i-1},Z^{(i)}_{i+1}  ,\dots, Z^{(i)}_n)$, and posterior $\hro^{(i)}\coloneqq \hro(Z^{(i)}_1, \dots,Z^{(i)}_n)$ on $ \cH$, we get 
+	\begin{align}
+	\E_{  h \sim \hro^{(i)}} \left[ \Eff_i^{  h}(Z^{(i)}_1, \dots, Z^{(i)}_n) \right]- \KL(\hro^{(i)}\|\hro_i^{(i)}) \stochleq 0. \label{eq:mid}
+	\end{align}
+	since $Z^{(i)}_j$ are i.i.d.~random variables, we can use Proposition~\ref{prop:Trans} to sum \eqref{eq:mid} for $i\in[n]$. This leads to 
+	\begin{align}
+	\sum_{i=1}^n	\E_{  h \sim \hro^{(i)}} \left[ \Eff_i^{  h}(Z^{(i)}_1, \dots, Z^{(i)}_n) \right]-\sum_{i=1}^n \KL(\hro^{(i)}\|\hro_i^{(i)}) \stochleq 0.
+	\end{align}
+	By applying Lemma \ref{prop:drop}-(a), we get 
+	\begin{align}
+	0 &\geq \E\left[ \sum_{i=1}^n \left(	\E_{ h \sim \hro^{(i)}} \left[ \Eff_i^{  h}(Z^{(i)}_1, \dots, Z^{(i)}_n) \right] - \KL(\hro^{(i)}\|\hro_i^{(i)})  \right)  \right], \\
+	& = n  \E_{Z^n}  \left[	\E_{h \sim   \hro} \left[ \Eff_i^{  h}(Z_1, \dots, Z_n) \right]\right]   - \E_{Z^n}  \left[\sum_{i=1}^n \KL(\hro\|\hro_i)  \right], \label{eq:goal}
+	\end{align}
+	where the last equality follows by the fact that
+	\begin{align*}
+	\E_{Z^n}\left[\E_{ h \sim \hro^{(i)}} \left[ \Eff_i^{  h}(Z^{(i)}_1, \dots, Z^{(i)}_n)\right] - \KL(\hro^{(i)}\|\hro_i^{(i)})   \right] =  \E_{Z^n}\left[	\E_{ h \sim   \hro} \left[ \Eff_i^{  h}(Z^n) \right] - \KL(\hro\|\hro_i)   \right], 
+	\end{align*}
+	for all $i\in[n]$, since $Z^{(i)}_1, \dots, Z^{(i)}_n$ are i.i.d.~copies of $Z_1, \dots, Z_n$. Rearranging \eqref{eq:goal} and dividing by $n$ leads to the desired result.
+\end{proof}
+
+\commentout{
+	In our main result (Theorem \ref{thm:main}), we present a PAC-Bayesian bound which holds in expectation. To obtain such a result, we need a way to go from an ESI inequality with a random $\eta$ to an inequality which holds in expectation. The next proposition provides us with the means to do this:  
+	\begin{proposition}{\bf [From ESI to \Exp]}
+		\label{prop:esitoexp}
+		Let $\cG$ be a countable subset of $\reals_{>0}$ such that $\sup \cG <\infty$ and $\inf \cG >0$. Given a collection of random variables $\{Y_\eta: \eta \in \cG \}$ and an estimator $\estimate\eta$ with support on $\cG$ satisfying $Y_{\estimate\eta} \stochleq_{\estimate\eta} 0$, we have
+		\begin{equation}\label{eq:traina}
+		\expect{}{Y_{\estimate\eta}} \leq \expect{}{
+			\frac{1 +  \ln \frac{\sup \cG}{\inf\cG} }{\estimate\eta}
+		}.
+		\end{equation}
+	\end{proposition}
+}
+\subsection{Proof of Theorem \ref{thm:VP}}
+The following lemma due to \citep{mhammedi2019pac} is central to the proof of Theorem \ref{thm:VP}. %Part (a) is not really new but a slight variation of existing results found in \cite{howard2018uniform,fan2015exponential}.            
+\begin{lemma}{\bf \ [{\em un-\/}expected Bernstein]}
+	\label{lem:bernsand}
+	Let $X$ be a random variable bounded from {\em above} by $1$ almost surely, and let $\vartheta(u) := 
+	(- \ln (1-u) - u)/u^2$. For all $0 < \eta < 1$, we have:
+	\begin{align}\label{eq:blade}
+	\E[X] - X  \stochleq_{\eta} \ \eta \vartheta(\eta) \cdot X^2.
+	\end{align} 
+\end{lemma}
+We now prove Theorem \ref{thm:VP}:
+\begin{proof}{\bf{of Theorem \ref{thm:VP}}}
+	Let $\eta \in]0,1[$. For $i\in[n]$, $z^n_{\smallsetminus i} \in \cZ^{n-1}$, and $h\in \cH$, let $$\ro_i \coloneqq \ro(z^n_{\smallsetminus i})\quad  \text{and} \quad  g^h(Z_i, z^{n}_{\smallsetminus i}) \coloneqq \eta \ell(h,Z_i) -\eta  \E_{h\sim \ro_i } [\ell(h, Z_i)].$$
+	Furthermore, let
+	\begin{align*}
+	\Phi^{h}_i(z_1, \dots, z_{i-1}, Z_i, z_{i+1}, \dots,z_n) & \coloneqq \E [ g^h(Z_i, z^{n}_{\smallsetminus i}) ] - g^h(Z_i, z^{n}_{\smallsetminus i})   - \eta \vartheta(\eta) g^h(Z_i, z^{n}_{\smallsetminus i}) ^2.
+	\end{align*}
+	Lemma \ref{lem:bernsand} implies that 
+	\begin{align}
+	\Phi^{h}_i(z_1, \dots, z_{i-1}, Z_i, z_{i+1}, \dots,z_n)  \stochleq  0.
+	\end{align} 
+	By applying Lemma \ref{lemma:mainlem} and rearranging the resulting inequality, we get the desired result.
+\end{proof}
+
+\subsection{Proof of Theorem \ref{thm:KL}}
+\begin{proof}
+	We will first show that the inequality hold for $\ell\colon \cZ \rightarrow \{0,1\}$. 
+For $h \in \cH$ and $i\in[n]$, let $X^h := \ell(h,Z)$ and
+$X^{h}_i := \ell(h, Z_i)$; since $\ell \in \{0,1\}$, $X^h$ and $X^h_i$ can be viewed as Bernoulli random variables. For $h\in \cH$, let
+$L(h) = \E [\ell(h,Z)]$ be the probabiltiy that
+$h$ makes a mistake, \emph{i.e.}~$L(h) = \P[\ell(h,Z) = 1]= \P[X^h = 1]$. Let $p(\ \cdot\ ;{\mu})$ be the probability mass function of a Bernoulli distribution with parameter $\mu \in [0,1]$; that is,
+$p(1; \mu) = \mu$ and $p(0;\mu)=1-\mu$. 
+
+For $n >1$, $0 \leq s \leq n-1$, and $h \in \cH$, we have
+\begin{align}{\bf E} \left[\frac{p(X^h; (s+X^h)/n)}{p(X^h; L(h))} \right]
+= L(h) \cdot \frac{(s+1)/n}{L(h)} + 
+(1- L(h)) \cdot \frac{(n-s)/n}{1-L(h)} = 1 + \frac{1}{n}. \label{eq:theinequality}
+\end{align}
+For $z^{n}_{\smallsetminus i} \in \reals^{n-1}$ and $L_i(h)\coloneqq  (\ell(h, Z_i) + \sum_{j \neq i} \ell(h, z_j))/n$, let
+\begin{align}
+\Phi^h_{i}(z_1,\dots,z_{i-1}, Z_i, z_{i+1}, \dots, z_n) \coloneqq \log \frac{p(X^h_{i}; L_i(h) )}{p(X^h_{i}; L(h))} - \log \left(1 + \frac{1}{n} \right).
+\end{align}
+From \eqref{eq:theinequality}, we have
+$$
+\Phi^h_{i}(z_1,\dots,z_{i-1}, Z_i, z_{i+1}, \dots, z_n) \stochleq  0.
+$$
+Thus, by applying Lemma \ref{lemma:mainlem}, we get
+%Using Donsker-Varadhan-PAC-Bayes we now get:
+%$$
+%{\bf E}_{f \sim \hat{\Pi}_n} \left[\log \frac{p_{\hat{L}_h}(U_{f,n})}{p_{\tilde\mu_h}(U_{f,n})} \right] \stochleq^{P|Z^{n-1}}_1 \KL(\hat{\Pi}_n \| \hat{\Pi}_{{n-1}}) + \log \left(1 + \frac{1}{n} \right).
+%$$
+%Now using Lemma~\ref{lem:mainb} below (with $i$ in the role of $n$, for $i =1..n$) we see that we can apply it with all  $\xi_i=0$, and we get (note that $\log$ denotes natural logarithm):
+\begin{align*}
+\E_{Z^n}\left[ \E_{h \sim \hro} \sum_{i=1}^n \left[\log \frac{p(X^h_{i}; \what{L}(h))}{p(X^h_{i}; L(h))} \right] \right]& \leq  \E_{Z^n} \left[
+\sum_{i=1}^n \KL(\hro \| \hro_{i}) \right]+ n \log \left(1 + \frac{1}{n} \right) \\
+&
+\leq \E_{Z^n} \left[
+\sum_{i=1}^n \KL(\hro \| \hro_{i}) \right]+ 1,
+\end{align*}
+where we used the fact that $\log (1 +x) \leq x$.
+Now, by the robustness property of KL divergence for exponential family (Peter's book, Chapter 19), this gives that:
+\begin{align}
+n  \E_{Z^n} \left[\E_{h \sim \hro} \left[ \kl(\what{L}(h) \| L(h))\right] \right] &\leq 
+\E_{Z^n} \left[
+\sum_{i=1}^n \KL(\hro \| \hro_{i}) \right]+ 1, \label{eq:thebefore}
+\end{align}
+We now show that this inequality holds for losses taking values in $[0,1]$ (rather than just in $\{0,1\}$). Let $N \in \mathbb{N}$ and $\cP \coloneqq \{\cZ_1, \dots, \cZ_N\}$ be a partition of $\cZ$; that is, $\cZ_1, \dots, \cZ_N$ are disjoint (measurable) subsets of $\cZ$ such that $\bigcup_{i=1}^N \cZ_i = \cZ$. Further, for $h\in \cH$, let $\bm{v}^h \coloneqq (v^h_1, \dots, v^h_N)^{\top} \in [0,1]^N$ such that $\ell(h, Z)\geq    \sum_{k=1}^N v^h_k \cdot \mathbbm{1}\{Z \in \cZ_k \}.$ We define
+\begin{align}
+X(\bm{v}^h; \cP) \coloneqq  \kl\left(\frac{1}{n} \left.\sum_{i=1}^n  \sum_{k=1}^N v^h_k \cdot \mathbbm{1}\{Z_i \in \cZ_k \} \right\| \E_Z\left[ \sum_{k=1}^N  v^h_k \cdot \mathbbm{1}\{Z \in \cZ_k \}\right]    \right).
+\end{align}
+By the joint convexity of $\kl$, $X( \cdot ; \cP)$ is convex, and so there exists $\bar{\bm{v}}^h \in\{0,1\}^{N}$ such that $X(\bm{v}^h; \cP)\leq X(\bar{\bm{v}}^h; \cP)$. By letting $\bar{\ell}(h, Z) \coloneqq  \sum_{k=1}^N \bar{v}^h_k \cdot \mathbbm{1}\{Z \in \cZ_k \}$, we get
+\begin{align}
+\E_{Z^n}\left[ \E_{h\sim \hro}\left[X(\bm{v}^h; \cP) \right]\right]  &\leq \E_{Z^n}\left[ \E_{h\sim \hro}\left[X(\bar{\bm{v}}^h;\cP) \right]\right]\nonumber \\ & =  \E_{Z^n}\left[\E_{h\sim \hro} \left[\kl\left(\frac{1}{n} \left.\sum_{i=1}^n \bar{\ell}(h, Z_i) \right\| \E_Z\left[\bar\ell(h,Z)\right]    \right) \right]\right] \nonumber \\
+& \leq \E_{Z^n} \left[
+\frac{\sum_{i=1}^n \KL(\hro \| \hro_{i})+ 1}{n} \right], \label{eq:mids}
+\end{align}
+where the last inequality follows by \eqref{eq:thebefore} since $\bar\ell\in\{0,1\}$. By definition of the Lebesgue integral, for any $h\in \cH$, there exists $(\bm{v}^{h}_{N} \in [0,1]^N)_{N \in \mathbb{N}}$ and a sequence of partitions $(\cP_{N}\coloneqq  \{ \cZ_{N,1},\dots, \cZ_{N,N} \})$ of $\cZ$, such that 
+\begin{gather}
+\ell(h, Z)\geq    \sum_{k=1}^N v^h_{N,k} \cdot \mathbbm{1}\{Z \in \cZ_{N,k} \}; \quad  \lim_{N \to \infty}   \sum_{k=1}^N  v^{h}_{N,k} \cdot \mathbbm{1}\{Z \in \cZ_{N,k} \} = \ell(h, Z) \\ \text{and} \quad \lim_{N \to \infty} \E_Z\left[ \sum_{k=1}^N  v^{h}_{N,k} \cdot \mathbbm{1}\{Z \in \cZ_{N,k} \}\right] = \E[\ell(h, Z)]
+\end{gather}
+Using this and the continuity of $\kl$ (which follows from its convexity), we get 
+\begin{align}
+\E_{Z^n}\left[ \E_{h\sim \hro}\left[\kl(\what{L}(h) \| L(h))\right]\right] &=\E_{Z^n}\left[ \E_{h\sim \hro}\left[\lim_{N\to \infty} X({\bm{v}}^{h}_N; \cP_N)  \right]\right].\label{eq:1}
+\shortintertext{Since $X$ is non-negative ($\kl$ is non-negative), we have, by Fatou's Lemma:}
+\E_{Z^n}\left[ \E_{h\sim \hro}\left[\lim_{N\to \infty} X({\bm{v}}^{h}_N; \cP_N)  \right]\right]&\leq  \liminf_{N \to\infty} \E_{Z^n}\left[ \E_{h\sim \hro}\left[X(\bm{v}^{h}_N; \cP_N) \right]\right], \\
+& \leq \E_{Z^n} \left[
+\frac{\sum_{i=1}^n \KL(\hro \| \hro_{i})+ 1}{n} \right], \label{eq:last}
+\end{align}
+where the last inequality follows by \eqref{eq:mids}. By combining \eqref{eq:1} and \eqref{eq:last}, and using the joint convexity of the $\kl$ for Bernoulli random variables, we get
+\begin{align}
+\E_{Z^n}  \left[ \kl(\what{L}(\hro) \| L(\hro))\right] &\leq 
+\E_{Z^n} \left[
+\frac{\sum_{i=1}^n \KL(\hro \| \hro_{i})+ 1}{n} \right]. \label{eq:ziel}
+\end{align}
+\end{proof}
+
+\commentout{
+\section{(In Progress) Fast Rate Excess-Risk Bounds for Convex Losses}
+In this section, we show how our bound in Theorem \ref{thm:VP} allows us to easily recover fast excess-risk bounds for ERM when the loss function $\ell \colon \cH \times \cZ \rightarrow [-1,1]$ is strongly convex or exp-concave in the first argument. For this, we consider the following condition:
+\begin{definition}
+	Let $\beta \in[0,1]$ and $B>0$. The $(\beta,B)$-Bernstein condition holds if for all $h\in \cH$, \begin{align}\nonumber \expect{}{\left(\ell(h,X)- \ell(h^\star,X)\right)^2} \leq B \cdot \expect{}{\ell(h,X)- \ell(h^\star,X)}^{\beta},\end{align}
+	where $h^\star \in \argmin_{h\in \cH} \expect{}{\ell(h,X)}$ is a risk minimizer within the closer of $\cH$.
+\end{definition}
+The Bernstein condition \cite{audibert2004pac,bartlett2006empirical,erven2015fast,koolen2016combining} essentially characterizes the ``easiness'' of the learning problem; it implies that the variance in the excess loss random variable $\ell(h,X)- \ell(h^\star,X)$ gets smaller the closer the risk of hypothesis $h\in \cH$ gets to that of the risk minimizer $h^\star$. For bounded loss functions, the BC with $\beta=0$ always holds. The Bernstein condition with $\beta=1$ (the ``easiest'' learning setting) is also known as the {\em Massart noise condition}; in particular, it holds whenever $\cH$ is convex and $h \mapsto \ell(h,z)$ is strongly convex or exp-concave, for all $z\in \cX$ \cite{erven2015fast,mehta2017fast}\footnote{For more examples of learning settings where a BC holds see \cite[Section 3]{koolen2016combining}.}. 
+
+In what follows, we denote $\hat h^{\textsc{erm}} \in \argmin_{h \in \cH} \what L(h)$ the empirical risk minimizer.
+\begin{theorem}
+	\label{thm:bern}
+	If $\ell\colon \cH \times \cZ \rightarrow \reals$ is convex in the first argument, and the $(\beta, B)$-Bernstein condition holds for $\beta \in[0,1]$ and $B>0$, then there exists a constant $C>0$ such that
+	\begin{align}
+	\E_{Z^n}\left[ L(\hat h^{\textsc{erm}}) - L(h^\star)\right] \leq \frac{C}{n} \label{eq:exp}
+	\end{align}
+\end{theorem}
+Using the boosting the confidence trick due to \cite[Theorem~4]{mehta2017fast}, a fast rate high-probability bound can be extracted from \eqref{eq:exp}. We now show how a fast $O(1/n)$ excess-risk bound for ERM follows from Theorem \ref{thm:bern} when the loss is strongly-convex or exp-concave in the first argument. 
+\begin{lemma}
+	\label{lem:translation}
+	Let $\alpha >0$. If $\ell\colon \cH \times \cZ \rightarrow [-1,1]$ is $\alpha$-strongly-convex in the first argument, then $\ell(\cdot, z)$ is $\alpha$-exp-concave, for all $z\in \cZ$.  
+	Furthermore, whenever $\ell\colon \cH \times \cZ \rightarrow [-1,1]$ is $\alpha$-exp-concave in the first argument, then the $(1, 4(1/\alpha+1))$-Bernstein condition holds. 
+\end{lemma}
+
+\begin{proof}{\bf of Theorem \ref{thm:bern}.\ }
+	We will instantiate the bound of Theorem \ref{thm:VP} with $\hro= \mathcal{N}(\hat h^{\erm}_{\smallsetminus n}, \sigma^2\bm{I})$ and $\hro_{\smallsetminus i}= \mathcal{N}(\hat h_{\smallsetminus i}^{\erm}, \sigma^2\bm{I})$, for some $\sigma^2 >0$ which we will choose later. Using the fact that $(a + b)^2 \leq 2 a^2 + 2 b^2$, for all $a,b \in \reals$, and Jensen's inequality, we have
+	\begin{align}
+	\E_{Z^n}[\what V (\hro)] &\leq  \E_{Z^n} \left[\frac{2}{n}\sum_{i=1}^n  \E_{h\sim \hro}\left[(\ell(h,Z_i) - \ell(h^\star, Z_i))^2\right]  \right] \\& \quad +  \E_{Z^n} \left[\frac{2}{n}\sum_{i=1}^n \E_{h\sim \hro_{\smallsetminus i}} \left[(\ell(h,Z_i) - \ell(h^\star, Z_i))^2\right]  \right] , \\
+	& \leq   \E_{Z^n} \left[\frac{2}{n}\sum_{i=1}^n  \E_{h\sim \hro}\left[(\ell(h,Z_i) - \ell(h^\star, Z_i))^2\right]  \right] \\& \quad + 2 \E_{Z^n} \left[ \E_{h\sim \hro_{\smallsetminus n}} \left[(\ell(h,Z_n) - \ell(h^\star, Z_n))^2\right]  \right],
+	\end{align}
+By another application of Theorem \ref{thm:VP} without leave-one-out, we have
+	\begin{align}
+	\E_{Z^n} \left[\frac{2}{n}\sum_{i=1}^n  \E_{h\sim \hro}\left[(\ell(h,Z_i) - \ell(h^\star, Z_i))^2\right]  \right] &	\leq   2\E_{Z}\left[ \E_{Z^n} \left[  \E_{h\sim \hro}\left[(\ell(h,Z) - \ell(h^\star, Z))^2\right]   \right]\right] \nonumber \\& \hspace{-3cm}  + \E_{Z^n} \left[\frac{2\eta \vartheta(\eta)}{n}\sum_{i=1}^n  \E_{h\sim \hro}\left[(\ell(h,Z_i) - \ell(h^\star, Z_i))^4 + \frac{\KL(\hro\| \ro_0)}{n}\right]  \right],\nonumber
+\shortintertext{Since the losses are between 0 and 1, we get}
+& \leq   2\E_{Z}\left[ \E_{Z^n} \left[  \E_{h\sim \hro}\left[(\ell(h,Z) - \ell(h^\star, Z))^2\right]   \right]\right] \nonumber \\& \hspace{-3cm} + \E_{Z^n} \left[\frac{2\eta \vartheta(\eta)}{n}\sum_{i=1}^n  \E_{h\sim \hro}\left[(\ell(h,Z_i) - \ell(h^\star, Z_i))^2 + \frac{\KL(\hro\| \ro_0)}{\eta n}\right]  \right], 
+	\end{align}
+By rearraging this inequality we get
+\begin{align}
+	(1-\eta\vartheta(\eta))\E_{Z^n} \left[\frac{2}{n}\sum_{i=1}^n  \E_{h\sim \hro}\left[(\ell(h,Z_i) - \ell(h^\star, Z_i))^2\right]  \right]& \leq \E_{Z^n} \left[\frac{\KL(\hro\| \ro_0)}{\eta n}\right] \\ 
+	& \hspace{-2cm} 2\E_{Z^n} \left[  \E_{h\sim \hro}\left[(\ell(h,Z) - \ell(h^\star, Z))^2\right]   \right]
+	\end{align}
+	
+		\todo[inline]{To be continued}
+\end{proof}
+}
+
+\bibliography{biblio}
+\bibliographystyle{plain}
+
+\end{document}

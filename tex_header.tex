@@ -1,0 +1,201 @@
+%\usepackage{bold-extra}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{multirow}
+%\usepackage{color}
+\usepackage{enumitem}
+\usepackage{marginnote}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{mathcomp}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+\usepackage{xr}
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+%\usepackage{MnSymbol}
+%\usepackage[utf8]{inputenc} % allow utf-8 input
+%\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+%\usepackage{hyperref}       % hyperlinks
+%\usepackage{showlabels}
+%\usepackage{url}            % simple URL typesetting
+%\usepackage{booktabs}       % professional-quality tables
+%\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{microtype}      % microtypography
+
+
+\newcommand{\e}{\bm{e}}
+\newcommand{\bigto}{\witlde{O}}
+\newcommand{\nextline}{\nonumber \\}
+
+\newcommand{\vth}{\bm{\theta}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\vc}{\bm{c}}
+\newcommand{\wtilde}{\widetilde}
+\newcommand{\newsimplex}{\widetilde\triangle}
+\newcommand{\loss}{\ell}
+\DeclareBoldMathCommand{\vloss}{\loss}
+\DeclareBoldMathCommand{\grad}{g}
+\DeclareBoldMathCommand{\fakegrad}{\mathring{\bm{g}}}
+\DeclareBoldMathCommand{\e}{e}
+\DeclareBoldMathCommand{\p}{p}
+\DeclareBoldMathCommand{\u}{u}
+\DeclareBoldMathCommand{\w}{w}
+\DeclareBoldMathCommand{\x}{x}
+\DeclareBoldMathCommand{\l}{l}
+\DeclareBoldMathCommand{\vzero}{0}
+\let\top\intercal
+
+\newcommand{\LSE}{\mathsf{LSE}}
+
+\newcommand{\algp}{\widehat\p}
+\newcommand{\textloss}{\textsc{loss}}
+\newcommand{\squint}{\textsc{Squint}}
+\newcommand{\coinbet}{\textsc{Coint Betting}}
+\newcommand{\metagrad}{\textsc{MetaGrad}}       % Original   MetaGrad
+\newcommand{\clipmetagrad}{\textsc{MetaGrad+C}}
+\newcommand{\restartgrad}{\textsc{MetaGrad+L}}
+\newcommand{\newsquint}{\textsc{Squint+L}}
+\newcommand{\clipsquint}{\textsc{Squint+C}}
+\newcommand{\alg}{\textsc{Alg}}
+\newcommand{\linregret}{\tilde{R}}            % Regret on linearized losses      
+\newcommand{\cliplinregret}{\bar{R}}         % Regret on linearized losses with clipped gradients
+\newcommand{\clipvar}{\bar{V}}               % Variance on clipped gradients
+\newcommand{\domain}{\mathcal{U}}
+\newcommand{\simplex}{\triangle}             % probability simplex
+\newcommand{\reals}{\mathbb{R}}
+\DeclareMathOperator{\KL}{KL}
+%\DeclareMathOperator{\E}{\mathbb{E}}
+\newcommand{\U}{\mathbf{U}}  
+\newcommand{\V}{\mathbf{V}}  
+\newcommand{\T}{\mathbf{T}}   
+\renewcommand{\x}{\bm{x}}   
+\newcommand{\z}{\bm{z}}
+\newcommand{\y}{\bm{y}} 
+\newcommand{\g}{\bm{g}} 
+\newcommand{\vtau}{\bm{\tau}} 
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cX}{\mathcal{X}}    
+\newcommand{\bcX}{\overline{\cX}}
+
+\newcommand{\cB}{\mathcal{B}}    
+\newcommand{\bcB}{\overline{\cB}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cY}{\mathcal{Y}}  
+\newcommand{\ubn}{{\bm\nabla}}
+
+\newcommand{\pred}{\widehat{\bm{u}}}
+
+\DeclareMathOperator{\Det}{det}
+\DeclareMathOperator{\Span}{span}
+%\DeclareMathOperator{\T}{\intercal}
+\DeclareMathOperator{\D}{\mathsf{D}}
+\DeclareMathOperator{\mT}{\mathsf{-T}}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\Mix}{Mix}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\Dim}{dim}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\Cl}{cl}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Lin}{lin}
+\DeclareMathOperator{\Vect}{vect}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\Ri}{ri}
+\DeclareMathOperator{\Diag}{diag}
+\DeclareMathOperator{\Grad}{grad}
+\DeclareMathOperator{\Aff}{aff}
+\DeclareMathOperator{\Dom}{dom}
+\DeclareMathOperator{\Bd}{bd}
+\DeclareMathOperator{\Rbd}{rbd}
+\DeclareMathOperator{\Epi}{epi}
+\DeclareMathOperator*{\Argmin}{Argmin}
+\DeclareMathOperator*{\Argmax}{Argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\s}{s}
+\let\Se\undefined
+\DeclareMathOperator*{\Se}{S}
+\DeclareMathOperator*{\f}{f}
+\DeclareMathOperator*{\sgn}{sgn}
+
+\newcommand{\G}{\mathbf{G}}
+\newcommand*{\knk}[1]{\llbracket #1 \rrbracket}
+\newcommand*{\bh}[1]{\widehat{\bm{#1}}}
+\newcommand*{\what}[1]{\widehat{#1}}
+\newcommand*{\floor}[1]{\left\lfloor{#1}\right\rfloor}
+\newcommand*{\Ceil}[1]{\left\lceil{#1}\right\rceil}
+\newcommand*{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand*{\tik}{\theta \in [k]}
+\newcommand*{\cI}{\mathfrak{l}}
+\newcommand{\isep}{\mathrel{{.}\,{.}}\nobreak}
+\newcommand*{\hbm}[1]{\hat{\bm{#1}}}
+\newcommand*{\smat}[1]{\begin{bsmallmatrix}#1\end{bsmallmatrix}}
+\newcommand*{\ibid}{ibid.}
+\newcommand*{\I}{\iota}
+\newcommand*{\Hi}{Hiriart-Urruty}
+\newcommand*{\m}{\mathsf{m}}
+\newcommand*{\M}{\operatorname{Mix}}
+\newcommand*{\op}[1]{\operatorname{#1}}
+\newcommand*{\argminl}{\argmin\limits}
+\newcommand*{\argmaxl}{\argmax\limits}
+\newcommand{\nn}{\nonumber}
+\newcommand{\ri}[1]{\Ri(#1)}
+\newcommand{\tph}{\tilde{\varphi}}
+\newcommand{\tphs}{\tilde{\varphi}^*}
+\newcommand{\tbr}{\underline{\tilde{L}}}
+\newcommand{\br}{\underline{L}}
+\newcommand{\Inner}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\inner}[2]{\langle#1,#2\rangle}
+\newcommand{\Inn}[1]{\Int(#1)}
+\newcommand{\tbm}[1]{\tilde{\bm{#1}}}
+\newcommand{\tup}[1]{\tilde{\MakeUppercase{#1}}}
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}   
+\newcommand{\Norm}[1]{\lVert#1\rVert}   
+\newcommand{\diag}[1]{\Diag\left(#1\right)}
+%\newcommand{\grad}[1]{\Grad #1}
+\newcommand{\rest}[1]{\left.#1 \right|}
+%\newcommand{\sps}{\mathcal{S}_{\ell}^{\oplus}}
+\newcommand{\sps}{\mathscr{S}_{\ell}}
+\newcommand{\cco}{\overline{\co}}
+\newcommand{\sell}{\underline{\ell}}
+\newcommand{\Der}[1]{\left. \frac{d}{dt} #1\right|_{t=0}}
+\newcommand{\der}[1]{ \frac{d}{dt} #1|_{t=0}}
+\newcommand{\bfo}[1]{\overline{\mathbf{#1}}}
+\newcommand{\bo}[1]{\overline{\bm{#1}}}
+\newcommand{\tmp}[1]{#1}
+
+\newtheorem{claim}{Claim}
+
+
+\newmdtheoremenv{condition}{Condition}
+\renewcommand*{\thecondition}{\Roman{condition}}
+\newcommand{\draft}[1]{{\color{red}#1}}
+\newcommand{\vertiii}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+%\newcommand{\bcdot}{\boldsymbol{\cdot}}
+
+
+\makeatletter
+\newcommand*\bcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+
+
+
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+  \begingroup
+  \setlength{\itemindent}{\myindent}
+  \addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
