@@ -1,0 +1,670 @@
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}{Claim}
+%\newtheorem{example}[theorem]{Example}
+\newtheorem{condition}{Condition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{observation}{Observation}
+
+\newenvironment{myexampleplain}{\begin{example}\normalfont}{$\square$\end{example}}
+\newenvironment{myexample}[1]{\begin{example}[#1]\normalfont}{$\square$\end{example}}
+
+\newcommand{\commentout}[1]{}
+\newcounter{repeatproba}
+\newcounter{repeatprobb}
+\newcounter{repeatprobc}
+\newcounter{lemmastronglawcounter}
+\newcounter{snavel}
+\newcommand{\rmbf}[1]{\rm{\bf{#1}}}
+
+\newenvironment{examplea}[1]{\begin{example}{\rm #1}\end{example}}
+
+
+%\newcommand{\Lb}{\left(}
+%\newcommand{\Rb{\right)}
+
+\newcommand{\Heta}{\what{\mathscr{H}}}
+\newcommand{\B}{\mathsf{B}}
+\newcommand{\m}{\smallsetminus}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand*{\what}{\widehat}
+\newcommand*{\rmd}{\mathrm{d}}
+\newcommand{\bGamma}{\mathbf{\Gamma}}
+\newcommand{\inner}[2]{\left\langle #1,#2\right\rangle }
+\newcommand{\where}{\text{where }\ }
+\newcommand{\Bf}[1]{\textbf{#1}}
+\newcommand{\grid}{\mathcal{G}}
+\newcommand*{\estimate}[1]{\hat{#1}}
+\newcommand{\emperical}{L_n}
+\newcommand{\avg}[1]{\langle #1 \rangle}
+\newcommand{\zfull}{\ensuremath{\mathbf Z}}
+\newcommand{\vz}{\ensuremath{\mathbf z}}
+\newcommand{\vZ}{\ensuremath{\mathbf Z}}
+\newcommand{\discrepancy}{\ensuremath{\text{\sc discrepancy}}}
+\newcommand{\comp}{\ensuremath{\text{\sc comp}}}
+\newcommand{\rerm}{\ensuremath{\text{\sc RERM}}}
+\newcommand{\risk}{\ensuremath{\overline{L}}}
+\newcommand{\complexity}{\ensuremath{\text{\sc complexity}}}
+\newcommand{\trainingerror}{\ensuremath{\text{\sc train-error}}}
+\newcommand{\za}{\ensuremath{\mathbf Z}_a}
+\newcommand{\zb}{\ensuremath{\mathbf Z}_b}
+\DeclareRobustCommand{\VANDER}[3]{#2}
+
+\newcommand*{\op}[1]{\operatorname{#1}}
+\newcommand*{\ms}[1]{\mathsf{#1}}
+\newcommand*{\floor}[1]{\left\lfloor{#1}\right\rfloor}
+\newcommand*{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand*{\Ceil}[1]{\left\lceil{#1}\right\rceil}
+\newcommand*{\invPi}{\text{\rotatebox[origin=c]{180}{$\Pi$}}}
+\newcommand*{\Mu}{\operatorname{M}}
+\newcommand{\etamax}{\bar{\eta}}
+\newcommand{\umax}{\upsilon_{\etamax}}
+\newcommand{\G}{\ensuremath{\langle G \rangle}}
+\newcommand{\weak}[1]{\ensuremath{\langle #1 \rangle_{\text{\rm weak}}}}
+\newcommand{\strong}[1]{\ensuremath{\langle #1 \rangle_{\text{\rm strong}}}}
+\newcommand{\super}[1]{\ensuremath{\langle #1 \rangle_{\text{\rm super}}}}
+\newcommand{\strongsuper}[1]{\ensuremath{\langle#1\rangle_{\text{\rm strong,super}}}}
+\newcommand{\determines}{\ensuremath{\rightsquigarrow}}
+\newcommand{\hyp}{\ensuremath{H}}
+\newcommand{\Pbayes}{\ensuremath{P}_{\text{B}}}
+\newcommand{\pval}{\ensuremath{{\tt pval}}}
+\newcommand{\qval}{\ensuremath{{\tt qval}}}
+\newcommand{\pcrit}{\ensuremath{{\tt p}_0}}
+\newcommand{\dnl}[1]{{\ensuremath{\bar{\text{\rm d}}_{#1}}}}
+\newcommand{\dul}[1]{{\ensuremath{{\text{\rm d}}_{#1}}}}
+\newcommand{\entropyrenyi}[1]{{\ensuremath{{\text{\rm H}}_{#1}}}}
+\newcommand{\bhellinger}[1]{{\ensuremath{{\text{\rm He}}_{#1}}}}
+\newcommand{\squaredhellinger}[1]{{\ensuremath{{\text{\rm He}}^2_{#1}}}}
+\newcommand{\af}{{\ensuremath{{\text{A}}}}}
+\newcommand{\resolvability}{{\text{\sc RES}}}
+\newcommand{\cesarorisk}{{\overline{\text{\sc RISK}}}}
+\newcommand{\puniv}{\ensuremath{\bar{P}}}
+\newcommand{\lunivtop}{\ensuremath{\bar{L}_{\text{\rm top}}}}
+\newcommand{\punivtop}{\ensuremath{\bar{P}_{\text{\rm top}}}}
+\newcommand{\funivtop}{\ensuremath{\bar{f}_{\text{\rm top}}}}
+\newcommand{\funivrsy}{\ensuremath{\bar{f}_{\text{\rm RSY}}}}
+\newcommand{\lunivsemitop}{\ensuremath{\bar{L}_{\text{\rm semi-top}}}}
+\newcommand{\punivsemitop}{\ensuremath{\bar{P}_{\text{\rm semi-top}}}}
+\newcommand{\lunivlbayes}{\ensuremath{\bar{L}_{\text{\rm lucky-Jeffreys}}}}
+\newcommand{\punivlbayes}{\ensuremath{\bar{P}_{\text{\rm lucky-Jeffreys}}}}
+\newcommand{\punivsolomonoff}{\ensuremath{\bar{P}_{\text{\rm Solomonoff}}}}
+\newcommand{\funivlbayes}{\ensuremath{\bar{f}_{\text{\rm lucky-Jeffreys}}}}
+\newcommand{\funivkernel}{\ensuremath{\bar{f}_{\kernel}}}
+\newcommand{\lunivlaplace}{\ensuremath{\bar{L}_{\text{\rm Laplace}}}}
+\newcommand{\punivlaplace}{\ensuremath{\bar{P}_{\text{\rm Laplace}}}}
+\newcommand{\quniv}{\ensuremath{\bar{Q}}}
+\newcommand{\punivplugin}{\ensuremath{\bar{P}_{\text{\rm plug-in}}}}
+\newcommand{\punivtp}{\ensuremath{\bar{P}_{\text{\rm 2-p}}}}
+\newcommand{\punivcrude}{\ensuremath{\bar{P}_{\text{\rm crude}}}}
+\newcommand{\punivref}{\ensuremath{\bar{P}_{\text{\rm refined}}}}
+\newcommand{\punivseq}{\ensuremath{\bar{P}_{\text{\rm seq}}}}
+\newcommand{\punivseqn}[1]{\ensuremath{\bar{P}_{\text{\rm seq},#1}}}
+\newcommand{\punivopt}{\ensuremath{\bar{P}_{\text{\rm opt}}}}
+\newcommand{\punivmodsel}{\ensuremath{\bar{P}_{\text{\rm modsel}}}}
+\newcommand{\punivmdlaic}{\ensuremath{\bar{P}_{\text{\rm mdl-aic}}}}
+\newcommand{\funivmodsel}{\ensuremath{\bar{P}_{\text{\rm modsel}}}}
+\newcommand{\optprior}{\ensuremath{{\prior}_{\text{\rm opt}}}}
+\newcommand{\punivmeta}{\ensuremath{\bar{P}_{\text{\rm meta}}}}
+\newcommand{\funivmeta}{\ensuremath{\bar{f}_{\text{\rm meta}}}}
+\newcommand{\funiv}{\ensuremath{\bar{f}}}
+\newcommand{\lunivhy}{\ensuremath{\bar{L}_{\text{\rm HY}}}}
+\newcommand{\funivlb}{\ensuremath{\bar{f}_{\text{\rm LB}}}}
+\newcommand{\punivlb}{\ensuremath{\bar{P}_{\text{\rm LB}}}}
+\newcommand{\lunivlb}{\ensuremath{\bar{L}_{\text{\rm LB}}}}
+\newcommand{\punivrnml}{\ensuremath{\bar{P}_{\text{\rm Rnml}}}}
+\newcommand{\punivcnmla}{\ensuremath{\bar{P}_{\text{\rm Cnml-1}}}}
+\newcommand{\punivcnmlb}{\ensuremath{\bar{P}_{\text{\rm Cnml-2}}}}
+\newcommand{\punivlnmla}{\ensuremath{\bar{P}_{\text{\rm Lnml-1}}}}
+\newcommand{\punivlnmlb}{\ensuremath{\bar{P}_{\text{\rm Lnml-2}}}}
+\newcommand{\funivcnmla}{\ensuremath{\bar{f}_{\text{\rm Cnml-1}}}}
+\newcommand{\funivcnmlb}{\ensuremath{\bar{f}_{\text{\rm Cnml-2}}}}
+\newcommand{\funivlnmla}{\ensuremath{\bar{f}_{\text{\rm Lnml-1}}}}
+\newcommand{\funivlnmlb}{\ensuremath{\bar{f}_{\text{\rm Lnml-2}}}}
+\newcommand{\punivnml}{\ensuremath{\bar{P}_{\text{\rm nml}}}}
+\newcommand{\funivnml}{\ensuremath{\bar{f}_{\text{\rm nml}}}}
+\newcommand{\funivbayes}{\ensuremath{\bar{f}_{\text{\rm Bayes}}}}
+\newcommand{\funivrnml}{\ensuremath{\bar{f}_{\text{\rm Rnml}}}}
+\newcommand{\funivrrnml}{\ensuremath{\bar{f}_{\text{\rm RRnml}}}}
+\newcommand{\punivnmln}[1]{\ensuremath{\bar{P}_{\text{\rm nml},#1}}}
+\newcommand{\punivbayes}{\ensuremath{\bar{P}_{\text{\rm Bayes}}}}
+\newcommand{\punivpreq}{\ensuremath{\bar{P}_{\text{\rm preq}}}}
+\newcommand{\punivcesaro}{\ensuremath{\bar{P}_{\text{\rm Cesaro}}}}
+\newcommand{\punivcesarb}{\ensuremath{\bar{P}_{\text{\rm Cesaro}\mid n-1}}}
+\newcommand{\punivsmml}{\ensuremath{\bar{P}_{\text{\rm smml}}}}
+\newcommand{\punivjmod}{\ensuremath{\bar{P}_{n,\text{\rm Jef}^+}}}
+\newcommand{\punivjeffreys}{\ensuremath{\bar{P}_{\text{\rm Jeffreys}}}}
+\newcommand{\funivjeffreys}{\ensuremath{\bar{f}_{\text{\rm Jeffreys}}}}
+\newcommand{\funivlaplace}{\ensuremath{\bar{f}_{\text{\sc u}}}}
+\newcommand{\luniv}{\ensuremath{\bar{L}}}
+\newcommand{\lunivtp}{\ensuremath{\bar{L}_{\text{\rm 2-p}}}}
+\newcommand{\lunivtpopt}{\ensuremath{\bar{L}_{\text{\rm 2-p, opt}}}}
+\newcommand{\lunivatp}{\ensuremath{\bar{L}_{\alpha 2 \text{\rm -p}}}}
+\newcommand{\punivatp}{\ensuremath{\bar{P}_{\alpha 2 \text{\rm -p}}}}
+\newcommand{\lunivtpcond}{\ensuremath{\bar{L}_{\text{\rm cond-2-p}}}}
+\newcommand{\lunivnml}{\ensuremath{\bar{L}_{\text{\rm nml}}}}
+\newcommand{\lunivbayes}{\ensuremath{\bar{L}_{\text{\rm Bayes}}}}
+\newcommand{\lunivsmml}{\ensuremath{\bar{L}_{\text{\rm smml}}}}
+\newcommand{\kc}{\ensuremath{{K}}}
+\newcommand{\lunivkc}{\ensuremath{\bar{L}_{\text{\rm Kolmogorov}}}}
+\newcommand{\lunivkcN}[1]{\ensuremath{\bar{L}_{\text{\rm Kolmogorov},#1}}}
+\newcommand{\punivkc}{\ensuremath{\bar{P}_{\text{\rm Kolmogorov}}}}
+\newcommand{\ctp}{\ensuremath{\const_{\text{\rm 2-p}}}}
+\newcommand{\cnml}{\ensuremath{\const_{\text{\rm nml}}}}
+\newcommand{\cbayes}{\ensuremath{\const_{\text{\rm Bayes}}}}
+
+\newcommand{\eP}{\ensuremath{\mathscr P}}
+\newcommand{\eA}{\ensuremath{\mathscr A}}
+\newcommand{\eC}{\ensuremath{\mathscr C}}
+
+\newcommand{\cA}{\ensuremath{\mathcal A}}
+\newcommand{\cB}{\ensuremath{\mathcal B}}
+\newcommand{\cC}{\ensuremath{\mathcal C}}
+\newcommand{\cD}{\ensuremath{\mathcal D}}
+\newcommand{\cE}{\ensuremath{\mathcal E}}
+\newcommand{\cF}{\ensuremath{\mathcal F}}
+\newcommand{\cG}{\ensuremath{\mathcal G}}
+\newcommand{\cH}{\ensuremath{\mathcal H}}
+\newcommand{\cI}{\ensuremath{\mathcal I}}
+\newcommand{\cJ}{\ensuremath{\mathcal J}}
+\newcommand{\cK}{\ensuremath{\mathcal K}}
+\newcommand{\cL}{\ensuremath{\mathcal L}}
+\newcommand{\cM}{\ensuremath{\mathcal M}}
+\newcommand{\cN}{\ensuremath{\mathcal N}}
+\newcommand{\cO}{\ensuremath{\mathcal O}}
+\newcommand{\cP}{\ensuremath{\mathcal P}}
+\newcommand{\cQ}{\ensuremath{\mathcal Q}}
+\newcommand{\cR}{\ensuremath{\mathcal R}}
+\newcommand{\cS}{\ensuremath{\mathcal S}}
+\newcommand{\cT}{\ensuremath{\mathcal T}}
+\newcommand{\cU}{\ensuremath{\mathcal U}}
+\newcommand{\cV}{\ensuremath{\mathcal V}}
+\newcommand{\cW}{\ensuremath{\mathcal W}}
+\newcommand{\cX}{\ensuremath{\mathcal X}}
+\newcommand{\cY}{\ensuremath{\mathcal Y}}
+\newcommand{\cZ}{\ensuremath{\mathcal Z}}
+\newcommand{\myargmax}[1]{\ensuremath{\underset{#1}{\ \arg \max \ }}}
+\newcommand{\myargmin}[1]{\ensuremath{\underset{#1}{\ \arg \min \ }}}
+\newcommand{\isbydefinition}{\ensuremath{{:=}}}
+\newcommand{\stsum}{\sum_{i=1}^n}
+\newcommand{\transpose}{\ensuremath{{\text{\sc T}}}}
+\newcommand{\indicator}{\ensuremath{{\mathbf 1}}}
+\newcommand{\distance}{\ensuremath{{d}}}
+\newcommand{\freq}{\ensuremath \gamma}
+\newcommand{\remainder}{\ensuremath R}
+\newcommand{\constant}{\ensuremath{K}}
+\newcommand{\const}{\ensuremath{c}}
+
+% SETS AND THEIR ELEMENTS 
+
+% SETS 1: general sets
+
+\newcommand{\reals}{{\mathbb R}}
+\newcommand{\booleans}{{\mathbb B}}
+\newcommand{\integers}{{\mathbb Z}}
+\newcommand{\naturals}{{\mathbb N}}
+\newcommand{\simplexN}[1]{\ensuremath{\Delta}^{(#1)}}
+
+% TOPOLOGY
+
+\newcommand{\closure}{\ensuremath{\mathrm{cl \ }}}
+\newcommand{\interior}{\ensuremath{\mathrm{int \ }}}
+\newcommand{\ball}{\ensuremath{B}}
+
+
+% SETS 2: Outcomes and Sample Spaces.
+
+\newcommand{\justaset}{\ensuremath {\mathcal U}}
+\newcommand{\justanevent}{\ensuremath {\mathcal E}}
+\newcommand{\justasymbol}{\ensuremath {s}}
+
+\newcommand{\data}{\ensuremath D}
+\newcommand{\dataalphabet}{\ensuremath \mathcal A}
+\newcommand{\samplespace}{\ensuremath {{\mathcal X}}}
+\newcommand{\yspace}{\ensuremath {{\mathcal Y}}}
+\newcommand{\zspace}{\ensuremath {{\mathcal Z}}}
+\newcommand{\outcomex}{\ensuremath x}
+\newcommand{\outcomey}{\ensuremath y}
+\newcommand{\bogus}{\ensuremath \Box}
+\newcommand{\maxoutcome}{\ensuremath m}
+\newcommand{\region}{\ensuremath{{\mathbf R}}}
+
+\newcommand{\mlN}[1]{\ensuremath{\hat{\theta}^{(#1)}}}
+\newcommand{\ml}{\ensuremath \hat{\theta}}
+\newcommand{\mapest}{\ensuremath \breve{\theta}}
+\newcommand{\param}{\ensuremath {\theta}}
+\newcommand{\paramN}[1]{\ensuremath {\theta}^{(#1)}}
+\newcommand{\meanest}{\ensuremath \bar{\theta}}
+\newcommand{\truepar}{\ensuremath \theta^*}
+\newcommand{\trueprob}{\ensuremath \prob^*}
+
+\newcommand{\twop}[1]{\ensuremath{{\ddot{#1}}}} 
+\newcommand{\twopN}[2]{\ensuremath{{\ddot{#1}^{(#2)}}}}
+\newcommand{\mcparam}[1]{\ensuremath{\theta_{[1|#1]}}}
+\newcommand{\mcmlparam}[1]{\ensuremath{\hat{\theta}_{[1|#1]}}}
+\newcommand{\mctrueparam}[1]{\ensuremath{{\theta}^*_{[1|#1]}}}
+\newcommand{\mcmlparamb}[2]{\ensuremath{\hat{\theta}_{[#1|#2]}}}
+\newcommand{\utm}{\ensuremath{\text{\sc{ul}}}}
+
+\newcommand{\phyp}{\ensuremath {H}}
+\newcommand{\ghyp}{\ensuremath {\mathcal H}}
+\newcommand{\hfun}{\ensuremath {h}}
+
+%SETS AND ELEMENTS 4: parameter SETS
+\newcommand{\parasetN}[1]{\ensuremath{\Theta^{(#1)}}}
+\newcommand{\paraset}{\ensuremath{\Theta}}
+\newcommand{\twopparaset}[2]{\ensuremath{{\ddot{\Theta}^{(#1)}_{#2}}}}
+
+\newcommand{\clengthnr}{\ensuremath{l}}
+
+\newcommand{\lunif}{\ensuremath{L_{U}}}
+\newcommand{\punif}{\ensuremath{P_{U}}}
+\newcommand{\Lint}{\ensuremath{L_{\naturals}}}
+\newcommand{\punivint}{\ensuremath{\bar{P}_{\naturals}}}
+\newcommand{\indexcode}{\ensuremath C_{\text{index}}}
+\newcommand{\shannoncode}{\ensuremath C_{\text{Shannon}}}
+\newcommand{\Lindex}{\ensuremath L_{\text{index}}}
+\newcommand{\Lshannon}{\ensuremath L_{\text{Shannon}}}
+\newcommand{\prefixlengths}{\ensuremath{\mathcal{L}}}
+\newcommand{\code}{\ensuremath C}
+\newcommand{\CN}[1]{\ensuremath C^{(#1)}}
+\newcommand{\codelength}{\ensuremath{L}}
+\newcommand{\codelengths}{\ensuremath{\mathcal{L}}}
+\newcommand{\regret}{\ensuremath{\mathcal R}}
+
+% functions, vectors, matrices
+\newcommand{\ERM}{\ensuremath{\text{\sc ERM}}}
+\newcommand{\justafunction}{\ensuremath{g}}
+\newcommand{\justavector}{\ensuremath{v}}
+\newcommand{\justamatrix}{\ensuremath{M}}
+\newcommand{\empprob}{\ensuremath{\mathbb P}}
+\newcommand{\prob}[1]{\mathbb{P}\left(#1\right)}
+
+%\newcommand{\prob}{\ensuremath P}
+\newcommand{\given}[2]{\left. #1\right|#2}
+\newcommand{\pd}{\ensuremath P}
+\newcommand{\densityf}{\ensuremath{f}}
+\newcommand{\Exp}{\ensuremath{\text{\rm E}}}
+\newcommand{\expect}[2]{\E_{#1}\left[#2\right]}
+\newcommand{\cov}{\ensuremath{\text{\rm cov}}}
+\newcommand{\var}{\ensuremath{\text{\rm var}}}
+\newcommand{\noiseterm}{\ensuremath{Z}}
+
+\newcommand{\expprior}{\ensuremath{q}}
+
+
+
+%models 
+
+\newcommand{\Bernoulli}{\ensuremath{\mathcal{B}}}
+\newcommand{\BernoulliN}[1]{\ensuremath{{\mathcal{B}}^{(#1)}}}
+\newcommand{\fakemarkov}{\ensuremath{\dddot{\Bernoulli}}}
+\newcommand{\M}{\ensuremath {{\cal M}}}
+\newcommand{\MN}[1]{\ensuremath {{\cal M}^{(#1)}}}
+  %these are 'candidate hypotheses'
+
+% Fisher inf stuff
+
+\newcommand{\observedmatrix}{\ensuremath J}
+%H already used for entropy
+\newcommand{\fishermatrix}{\ensuremath I}
+\newcommand{\curvelength}[1]{\ensuremath{\int_{#1} \fisherdens d\theta }}
+\newcommand{\fisherdens}{\ensuremath{\sqrt{\det \fishermatrix(\theta)}}}
+\newcommand{\fishervolume}{\ensuremath{V_{\text{d}}}}
+
+
+% CHAPTER 3 
+
+\newcommand{\level}{\mbox{\sc level}}
+\newcommand{\descendantset}{\mbox{\sc d}}
+\newcommand{\precision}{\ensuremath{d}}
+
+
+% \newcommand{\kl}{\mbox{$D$}}
+% \newcommand{\kl}{\mathrm{KL}}
+\newcommand{\entropy}{{\ensuremath{\text{\rm H}}}}
+
+% CHAPTER 4 
+
+
+% CHAPTER 6, 7
+
+\newcommand{\jp}{\ensuremath{w_{\text{Jef}}}}
+\newcommand{\Lref}{\ensuremath{\mathcal{L}_{\text{ref}}}}
+\newcommand{\pmodel}{\ensuremath{\theta}}
+\newcommand{\prior}{\ensuremath{w}}
+\newcommand{\discreteprior}{\ensuremath{W}}
+\newcommand{\decision}{\ensuremath{\delta}}
+\newcommand{\decisionspace}{\ensuremath{\Delta}}
+\newcommand{\loss}{\ensuremath{\text{\sc loss}}}
+\newcommand{\emptysequence}{\ensuremath{\text{\sc doen}}}
+\newcommand{\realprob}{\ensuremath{\text{\sc doen}}}
+\newcommand{\popt}{\ensuremath{\text{\sc doen}}}
+\newcommand{\opthypothesis}{\ensuremath{\text{\sc doen}}}
+%MOET ANDERS!
+
+
+
+
+\newcommand{\volume}{\ensuremath{V_{\text{p}}}}
+\newcommand{\Mdisc}{\ensuremath{\ddot{\mathcal M}}}
+\newcommand{\probset}{\ensuremath{{\mathcal P}}}
+\newcommand{\rcomplexity}{\ensuremath{\text{\bf RCOMP}}}
+\newcommand{\typset}{\ensuremath{{\mathcal A}}}
+
+%----------------------------------------------------------
+% POST chapter 7
+
+%MML
+
+\newcommand{\wftwopartlength}{\ensuremath{L_{\ensuremath{\text{mml-wf}}}}}
+\newcommand{\mmlplength}{\ensuremath{L_{\ensuremath{\text{mml-p}}}}}
+
+%MaxEnt
+\newcommand{\constraint}{\ensuremath{\mathcal C}}
+\newcommand{\constraintdataset}{\ensuremath {{\mathbf C}^n}}
+\newcommand{\entropified}[1]{\ensuremath{{\langle {#1} \rangle}}}
+\newcommand{\range}{\ensuremath \mathbf U}
+\newcommand{\expval}{\ensuremath t}
+\newcommand{\mep}{\ensuremath{\prob_{me}}}
+\newcommand{\mept}{\ensuremath{\prob_{me,\phi}(\cdot | t)}}
+\newcommand{\freqdataset}{\ensuremath {{\mathbf G}^n}}
+\newcommand{\freqdatasetn}[1]{\ensuremath {{\mathbf G}^{#1}}}
+\newcommand{\constraintprobset}{\ensuremath {{\mathbf M}}}
+\newcommand{\constraintdatasetn}[1]{\ensuremath {{\mathbf C}^{#1}}}
+\newcommand{\empiricalconstraint}{\ensuremath {{\cal C}_{ e}}}
+\newcommand{\average}[2]{\ensuremath \overline{#1}^{#2}}
+
+\newcommand{\lagrange}{\ensuremath \beta}
+
+\newcommand{\twopart}[1]{\ensuremath{\ddot{#1}_{\text{\sc 2-p}}}}
+\newcommand{\erm}[1]{\ensuremath{\ddot{#1}_{\text{\sc erm}}}}
+\newcommand{\hell}[1]{d_{\mathrm{He}(#1)}(f^* \pipes f)}
+\newcommand{\hellp}[1]{{\bf H}_{#1,f}}
+
+
+\newcommand{\dhel}{{d}}
+
+\newcommand{\ind}[1]{\mathop{{\bf 1}_{\{#1\}}}}
+
+\newcommand{\mv}{\ensuremath{\text{\sc mv}}}
+\newcommand{\Cmeta}{\ensuremath{C_{\text{\sc meta}}}}
+\newcommand{\Ctr}{\ensuremath{C_{\text{\sc tr}}}}
+
+\newcommand{\setting}{\ensuremath{\text{\sc setting}}}
+\newcommand{\Comp}{\ensuremath{\textsc{complexity}}}
+\newcommand{\emp}{\ensuremath{\text{\sc emp}}}
+\newcommand{\Dnew}[2]{\ensuremath{D^*_{#1}{(#2)}}}
+\newcommand{\Dseq}[2]{\ensuremath{D^*_{#1}{(#2)}}}
+\newcommand{\Dnewbf}[2]{\ensuremath{{\mathbf D}^*_{#1}{(#2)}}}
+\newcommand{\Dseqbf}[2]{\ensuremath{{\mathbf D}^*_{#1}{(#2)}}}
+\newcommand{\Demp}[2]{\ensuremath{D^{\emp}_{#1}{(#2)}}}
+\newcommand{\Dnewa}[1]{\ensuremath{D^*_{#1}}}
+\newcommand{\Dnewb}[1]{\ensuremath{D^*_{#1 #1}}}
+
+\newcommand{\nrenb}[1]{\ensuremath{D_{\eta \eta}}}
+
+
+\newcommand{\ann}{\ensuremath{\text{\sc ann}}}
+\newcommand{\Thetb}{\ensuremath{\Theta}}
+
+\newcommand{\Bound}{{}}
+\newcommand{\Pt}{P} 
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\Expt}{\ensuremath{\Exp^*}}
+\newcommand{\Expta}{\ensuremath{\Exp^*}} %abbreviate
+\newcommand{\Exptn}{\ensuremath{\Exp^{*}}} %abbreviate n+m 
+\newcommand{\Expann}[1]{\Exp^{\textsc{ann}(#1)}}
+\newcommand{\Exphel}[1]{\Exp^{\textsc{hel}(#1)}}
+
+
+
+\newcommand{\sarsc}[3]{D^*_{#2}(#3)}
+\newcommand{\sarscbf}[3]{{\bf D}^*_{#2}(#3)}
+\newcommand{\sarscb}[3]{\text{\sc sarsc}_{#2}(#3)}
+
+
+\newcommand{\an}{a}
+\newcommand{\bn}{b}
+\newcommand{\seq}{\text{\sc seq}}
+\newcommand{\batch}{\text{\sc batch}}
+\newcommand{\trans}{\text{\sc trans}}
+\newcommand{\finite}{\text{\sc finite}}
+\newcommand{\parset}{\Theta}\newcommand{\parb}{\theta}
+\newcommand{\rv}[1]{#1'}
+\newcommand{\funky}[1]{\rv{\tilde{\genaction}}}
+\newcommand{\funkyc}[1]{\rv{\tilde{\lambda}}}
+\newcommand{\funkyb}[1]{\tilde{#1}}
+
+\newcommand{\fstar}{f^*}
+\newcommand{\fopt}{\fstar}
+
+\renewcommand{\loss}{\ensuremath{\ell}}
+\newcommand{\mixloss}[2]{m^{#1}_{#2}}
+\newcommand{\grip}[1]{\mixloss{#1}{\cF}} % technically, this is the GRIP loss, not the GRIP itself
+\newcommand{\gripgen}[2]{\mixloss{#1}{#2}} % generalized version of GRIP loss for general classes
+\newcommand{\oldgriploss}{\loss_g} % we temporarily keep this around for places where we have not introduced the mix loss yet - we could keep it to ease the reader into the mix loss
+\newcommand{\oldgriplosseta}{\loss_{g_\eta}} % we temporarily keep this around for places where we have not introduced the mix loss yet - we could keep it to ease the reader into the mix loss
+% old excess loss style
+\newcommand{\xslosslong}[1]{\loss_{#1} - \loss_{\fopt}}
+\newcommand{\xslossatlong}[2]{\loss_{#1}(#2) - \loss_{\fopt}(#2)}
+% new excess loss style
+\newcommand{\xsloss}[1]{L_{#1}}
+\newcommand{\xslossat}[2]{L_{#1}(#2)}
+% \newcommand{\xsrisk}[1]{\E_{Z \sim \Pt} \bigl[ \xsloss{f} \bigr]}
+\newcommand{\xsrisk}[1]{\E [ \xsloss{#1} ]} 
+\newcommand{\xsrisklong}[1]{\E [ \xslosslong{#1} ]} 
+\newcommand{\xslosstheta}{\loss_\theta - \loss_{\theta^*}}
+\renewcommand{\range}{\text{\sc range}}
+\newcommand{\dol}{\what{P}} % DO-learning
+\newcommand{\dolest}{\dol_|} % DO-learning estimator
+\newcommand{\Prior}{\ensuremath{\mathcal{Q}}} % Prior
+\renewcommand{\prior}{\ensuremath{\pi}} % Prior
+\newcommand{\KL}{\text{\sc KL}}
+\newcommand{\kl}{ \operatorname{kl}}
+\newcommand{\sml}{ \operatorname{s}}
+\newcommand{\Hell}{\text{\sc H}}
+\newcommand{\Renyi}{\text{\sc R}}
+\newcommand{\pepr}{\ensuremath{\text{\sc pepr}}}
+\newcommand{\pepraction}{\ensuremath{\theta}}
+\newcommand{\genaction}{\ensuremath{\theta}}
+\newcommand{\ga}{\ensuremath{\genaction}}
+\newcommand{\genactionset}{\mathcal{F}_{\text{\sc allowed}}}
+\newcommand{\auxactionset}{\mathcal{F}_{\text{\sc aux}}}
+\newcommand{\allactionset}{\bar{\mathcal{F}}}
+%\newcommand{\mixaction}{\ensuremath{\rho}}
+\newcommand{\peprset}[1]{\ensuremath{\text{\sc pepr}(#1)}}
+\newcommand{\ownmax}[2]{\ensuremath{\max \/\left\{\/#1\;,\;#2\/\right\}}}
+\newcommand{\ownplus}[2]{\ensuremath{#1 + #2}}
+%\newcommand{\cumloss}{\ensuremath{L}}
+\newcommand{\smtuple}{(\Pt,\loss,\model)}
+\newcommand{\smtuplen}{(\Pt,\loss,\model,n)}
+\newcommand{\smtupleb}{(\Pt,\loss,\model,\fopt)}
+\newcommand{\standardtuple}{(\Pt,\loss,m ;n, \model)}
+\newcommand{\standardtupleb}{(\Pt,\loss,m; n,\Lambda \rightarrow \Thetb,\tilde\lambda)}
+\newcommand{\standardtuplec}{(\Pt,\loss,m; n,\Lambda \rightarrow \Thetb,\tilde\theta)}
+\newcommand{\smtuplec}[1]{(\Pt,\loss,\Thetb,#1)}
+\renewcommand\Exp{\ensuremath{\mathbb E}}
+\newcommand\EmpExp{\ensuremath{\mathbb E}}
+% \newcommand{\mix}[2]{{\text{\sc mix}_{#1}(#2)}}
+\newcommand{\random}[1]{{\text{\sc rand}(#1)}}
+\newcommand{\genest}[1]{\breve{\theta}_{{\text{\sc gen},#1}}}
+
+
+\newcommand{\longp}[1]{}
+\newcommand{\shortp}[1]{#1}
+
+
+\newcommand\tabelT{\rule{0pt}{3ex}}
+\newcommand\tabelB{\rule[-1.2ex]{0pt}{0pt}}
+
+\newcommand{\simplex}{\ensuremath{\Delta}}
+\newcommand{\etamix}{\ensuremath{\breve{\eta}}_{\text{\sc mixable}}}
+\newcommand{\etagap}{\ensuremath{\breve{\eta}}_{\text{\sc gap}}}
+\newcommand{\etacritvar}{\ensuremath{\bar{\breve{\eta}}_{\text{\sc var}}}}
+% \newcommand{\mixgap}{\ensuremath{\text{\sc mix-gap}}}
+\newcommand{\dist}{P}
+\newcommand{\Deta}{\Gamma}
+
+
+%\renewcommand{\L}{\ensuremath{L}}
+\newcommand{\midb}{|}
+\newcommand{\partition}{\text{\sc Z}}
+\newcommand{\baction}{\tilde{\delta}}
+\newcommand{\action}{\theta}
+\newcommand{\actionset}{\Theta}
+\newcommand{\allowedset}{\Theta_{\text{\rm ok}}}
+% \newcommand{\mixset}{\Theta_{\text{mix},\eta}}
+\newcommand{\model}{\mathcal{F}}
+\newcommand{\Cb}[2]{C_{#1/#2}}
+\newcommand{\bound}{\text{\sc bound}}
+\newcommand{\Cdh}[1]{C_{#1}}
+\newcommand{\Lmaxabs}{\ensuremath{\loss_{\max}({\bf 0})}}
+\newcommand{\Lmaxrel}{r_{\sup}}
+\newcommand{\Lmaxrelb}{R_{\text{\rm ssup}}}
+\newcommand{\Lmaxb}{\ensuremath{\bar{\loss}_{\max}}}
+%\newcommand{\etamax}{\ensuremath{\eta_{\max}}}
+\newcommand{\pbayes}{\ensuremath{p_{\text{\rm Bayes}}}}
+\newcommand{\prbayes}{\ensuremath{p_{\text{\rm r-Bayes}}}}
+%\newcommand{\prbayes}{\ensuremath{p_{\text{\rm RBayes}}}}
+\newcommand{\bitgap}{\ensuremath{\text{\sc mix-gap}}}
+\newcommand{\hedge}{\ensuremath{\text{\sc Hedge}}}
+\newcommand{\pseudohedge}{\ensuremath{\text{\sc PseudoHedge}}}
+\newcommand\emprisk{\ensuremath{\text{\sc risk}_{\text{\rm emp}}}}
+\newcommand\normcumrisk{\ensuremath{\text{\sc risk}_{\text{\rm n.c.}}}}
+%\renewcommand\risk{\ensuremath{\text{\sc risk}}}
+\renewcommand\regret{\ensuremath{\text{\sc regret}}}
+\renewcommand\paraset{\ensuremath{\Omega}}
+\newcommand\para{\ensuremath{\omega}}
+\newcommand\ces{\ensuremath{\text{\sc ces}}}
+\newcommand\har[1]{\ensuremath{#1}}
+\newcommand\conv{\ensuremath{\text{\sc conv}}}
+\newcommand\kapsafe{\ensuremath{\breve{\kappa}_{\text{\sc safe}}}}
+\newcommand\kapmax{\ensuremath{{\kappa}_{\max}}}
+\newcommand{\zbarci}{\ensuremath{\har{z}_{i \shortmid}}}
+\newcommand{\dsqold}{D^*_{\text{\sc sq}}}
+\newcommand{\gred}{\text{\sc red}_n}
+\newcommand{\mred}{\underline{\text{\sc red}}_n}
+
+\newcommand{\rsc}{\mathrm{IC}} % (empirical) information complexity
+\newcommand{\ebred}{\langle {\text{\sc bred}}\rangle}
+\newcommand{\esred}{\langle {\text{\sc sred}}\rangle}
+\newcommand{\bred}{{\text{\sc bred}}}
+
+
+\newcommand{\gered}{\overline{\text{\sc ered}}}
+\newcommand{\dsq}[1]{\ensuremath{d^*_{\text{\sc sq},#1}}}
+\newcommand{\dhe}[1]{\ensuremath{{d^*_{\text{\sc He},#1}}}}
+
+\newcommand\psafe{\ensuremath{\breve{p}_{\text{\sc safe}}}}
+\newcommand\Wsafe{\ensuremath{\breve{W}_{\text{\sc safe}}}}
+\newcommand\pnew{\ensuremath{p^{\text{new}}}}
+%\newcommand\tabelT{\rule{0pt}{3ex}}
+%\newcommand\tabelB{\rule[-1.2ex]{0pt}{0pt}}
+\newcommand{\Ca}{\ensuremath{C}}
+\newcommand{\Cc}{\ensuremath{c}}
+\newcommand{\ent}[1]{\ensuremath{#1}}
+\newcommand{\opt}[1]{{\opta(#1)}}
+\newcommand{\opta}[1]{{\text{\sc opt}}(#1)}
+\newcommand{\optb}[1]{\tilde{#1}_{\text{\sc opt}}}
+%\newcommand{\trans}[1]{{\transa(#1)}}
+%\newcommand{\transa}{{\text{\sc tr}}}
+\newcommand{\optmix}{{\text{\sc optmix}}}
+\newcommand{\optmixb}[2]{{\text{\sc optmix}(#1)(#2)}}
+
+\newcommand{\nonpseudo}[1]{\ensuremath{\text{\sc rand}(#1)}}
+\newcommand{\agg}[2]{{\text{\sc aa}_{#1}(#2)}}
+\newcommand{\map}[1]{{\text{\sc map}(#1)}}
+
+
+% \newcommand{\mixb}[2]{{\text{\sc mix}(#1)(#2)}}
+\newcommand{\empmix}{{\text{\sc supmix}}}
+\newcommand{\empmixb}[2]{{\text{\sc supmix}(#1)(#2)}}
+\newcommand{\zc}{\ensuremath{z_{\shortmid}}}
+\newcommand{\zci}{\ensuremath{z_{i \shortmid}}}
+\newcommand{\Zci}{\ensuremath{Z_{i \shortmid}}}
+\newcommand{\zca}{\ensuremath{z_{1\shortmid}}}
+\newcommand{\zcb}{\ensuremath{z_{2\shortmid}}}
+\newcommand{\Zc}{\ensuremath{Z_{\shortmid}}}
+\newcommand{\zbarc}{\ensuremath{\rv{Z}_{\shortmid}}}
+\newcommand{\Zbarc}{\ensuremath{\rv{Z}_{\shortmid}}}
+\newcommand{\Zbarci}{\ensuremath{\rv{Z}_{i \shortmid}}}
+\newcommand{\convlack}{\ensuremath{\text{\sc conv-lack}}}
+\newcommand{\etacrit}{\ensuremath{\bar{\breve{\eta}}}}
+\newcommand{\dotetacrit}{\ensuremath{\dot{\breve{\eta}}_{\text{\sc crit}}}}
+\newcommand{\etamin}{\ensuremath{\eta_{\min}}}
+\newcommand{\etaminb}{\ensuremath{\eta^{-}_{\min}}}
+\newcommand{\dotetamin}{\ensuremath{\dot{\breve{\eta}}_{\text{\sc min}}}}
+\newcommand{\Rcrita}{\ensuremath{R_{\text{\sc crit},0}}}
+\newcommand{\Rcritb}{\ensuremath{R_{\text{\sc crit},1}}}
+\newcommand{\Rcrit}{\ensuremath{R_{\etacrit}}}
+\hyphenation{half-space hypo-thesis}
+
+\newcommand{\bigmid}{\mathrel{}\middle|\mathrel{}}
+
+\newcommand{\Var}{\ensuremath{\text{\sc{Var}}}}
+
+\renewcommand{\volume}{\mathrm{vol}}
+
+
+%\newcommand{\todo}[1]{#1}
+
+\newcommand{\peter}[1]{{\ \\ \color{blue} Peter: #1}}                          
+\newcommand{\peterfoot}[1]{\footnote{{\color{blue} Peter: #1}}}                
+\newcommand{\nishant}[1]{{\ \\ \color{red} Nishant: #1}}               
+\newcommand{\nishantfoot}[1]{\footnote{{\color{red} Nishant: #1}}}
+
+
+
+% \newtheorem{theo}{Theorem}%[section]
+% % \newtheorem{model}{Model}
+% \newtheorem{prop}{Proposition}%[section]
+% \newtheorem{coro}{Corollary}%[section]
+% \newtheorem{lem}{Lemma}%[section]
+\providecommand*{\theoremautorefname}{Theorem}
+\providecommand*{\lemmaautorefname}{Lemma}
+\providecommand*{\algorithmautorefname}{Algorithm}
+\providecommand*{\propositionautorefname}{Proposition}
+\providecommand*{\corollaryautorefname}{Corollary}
+\providecommand*{\modelautorefname}{Model}
+\renewcommand*{\sectionautorefname}{Section}
+\newcommand{\Eff}{\Phi}
+
+\setlength{\marginparwidth}{25mm} % included for fixme, remove before submission!
+\usepackage[draft,multiuser]{fixme}
+%\fxsetup{theme=color,mode=multiuser}
+\fxusetheme{colorsig}
+\FXRegisterAuthor{peter}{Peter}{\color{blue}PG} 
+% for a note in the margin: \peternote{...} 
+% for a note in the main text with "hi" appearing in the margin:
+%     \begin{Peternote}{hi} ... \end{Peternote} 
+\FXRegisterAuthor{niche}{Niche}{\color{red}NM}
+% for a note in the margin: \nichenote{...} 
+% for a note in the main text with "hi" appearing in the margin:
+%     \begin{Nichenote}{hi} ...\end{Nichenote} 
+\newcommand{\notedone}[1]{}
+\newcommand{\arxivversion}[1]{#1}
+\newcommand{\asversion}[1]{}
+\newcommand{\estim}[1]{{\hat{#1}}}
+
+\newcommand*{\pipes}{\|}
+\newcommand*{\convhull}{conv}
+\newcommand*{\opmin}{\wedge}
+\newcommand*{\opmax}{\vee}
+\newcommand*{\sign}{sign}
+
+\newcommand*{\argmin}{\arg\min}
+\newcommand*{\Argmin}{\operatorname{Argmin}}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\stochleq}{\trianglelefteq}
+%\newcommand{\stochless}{\lessclosed}
+
+\newcommand*{\tr}{\mathrm{tr}}
+
+\newcommand{\1}{\bbm{1}}
+
