@@ -186,7 +186,7 @@ When $\eta=1$, we simply write $X \stochleq Y$ (\emph{i.e.}~we ommit the subscri
 \end{proposition}
 The next result is on the additivity property of ESI: 
 \begin{proposition}\label{prop:Trans} 
- Suppose now that $Z_1, \ldots, Z_n$ are i.i.d.~and let  $\Psi \colon \cZ \times \bigcup_{i=1}^n \cZ^i \rightarrow \reals$ be any real-valued function. If for some $\eta>0$, $\Psi(Z_i) \stochleq_\eta 0$, for all $i \in [n]$, then $\sum_{i=1}^n \Psi(Z_i) \stochleq_{\eta} 0$.
+ Let $Z_1, \ldots, Z_n$ be i.i.d.~random variables in $\cZ$, and let $\Psi \colon \cZ \rightarrow \reals$ be any real-valued function. If for some $\eta>0$, $\Psi(Z_i) \stochleq_\eta 0$, for all $i \in [n]$, then $\sum_{i=1}^n \Psi(Z_i) \stochleq_{\eta} 0$.
 \end{proposition}
 We now give the Donsker-Varadhan variational formula expressed in ESI form: \begin{proposition} \label{prop:donsker}
 	Fix $\eta > 0$ and let $\{X^h: h \in \cH\}$ be any family of random variables such that for all $h \in \cH$, $X^h \stochleq_{\eta} 0$. Let $\ro_0$ be any prior distribution on $\cH$ and let $\ro \colon \bigcup_{i=1}^n \cZ^{i} \rightarrow \triangle(\cH)$ be a learning algorithm.  We have, for $\hro = \ro(Z^n)$,
