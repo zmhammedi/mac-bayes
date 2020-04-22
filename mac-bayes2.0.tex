@@ -303,13 +303,13 @@ We now show that this inequality holds for losses taking values in $[0,1]$ (rath
 \begin{align}
 X(\bm{v}^h; \cP) \coloneqq  \kl\left(\frac{1}{n} \left.\sum_{i=1}^n  \sum_{k=1}^N v^h_k \cdot \mathbbm{1}\{Z_i \in \cZ_k \} \right\| \E_Z\left[ \sum_{k=1}^N  v^h_k \cdot \mathbbm{1}\{Z \in \cZ_k \}\right]    \right).
 \end{align}
-By the joint convexity of $\kl$, $X( \cdot ; \cP)$ is convex, and so there exists $\bar{\bm{v}}^h \in\{0,1\}^{N}$ such that $X(\bm{v}^h; \cP)\leq X(\bar{\bm{v}}^h; \cP)$. By letting $\bar{\ell}(h, Z) \coloneqq  \sum_{k=1}^N \bar{v}^h_k \cdot \mathbbm{1}\{Z \in \cZ_k \}$, we get
+By the joint convexity of $\kl$, $X( \cdot ; \cP)$ is convex and so its supremum is attained at the boundary of $[0,1]^N$ which is just $\{0,1\}^N$. Thus, for all $h\in \cH$, there exists $\bar{\bm{v}}^h \in\{0,1\}^{N}$ such that $X(\bm{v}^h; \cP)\leq X(\bar{\bm{v}}^h; \cP)$. By letting $\bar{\ell}(h, Z) \coloneqq  \sum_{k=1}^N \bar{v}^h_k \cdot \mathbbm{1}\{Z \in \cZ_k \}$, we get
 \begin{align}
 \E_{Z^n}\left[ \E_{h\sim \hro}\left[X(\bm{v}^h; \cP) \right]\right]  &\leq \E_{Z^n}\left[ \E_{h\sim \hro}\left[X(\bar{\bm{v}}^h;\cP) \right]\right]\nonumber \\ & =  \E_{Z^n}\left[\E_{h\sim \hro} \left[\kl\left(\frac{1}{n} \left.\sum_{i=1}^n \bar{\ell}(h, Z_i) \right\| \E_Z\left[\bar\ell(h,Z)\right]    \right) \right]\right] \nonumber \\
 & \leq \E_{Z^n} \left[
 \frac{\sum_{i=1}^n \KL(\hro \| \hro_{i})+ 1}{n} \right], \label{eq:mids}
 \end{align}
-where the last inequality follows by \eqref{eq:thebefore} since $\bar\ell\in\{0,1\}$. By definition of the Lebesgue integral, for any $h\in \cH$, there exists $(\bm{v}^{h}_{N} \in [0,1]^N)_{N \in \mathbb{N}}$ and a sequence of partitions $(\cP_{N}\coloneqq  \{ \cZ_{N,1},\dots, \cZ_{N,N} \})$ of $\cZ$, such that 
+where the last inequality follows by \eqref{eq:thebefore} since $\bar\ell(h,z)\in\{0,1\}$, for all $(h,z)\in \cH \times \cZ$. By definition of the Lebesgue integral, for any $h\in \cH$, there exists $(\bm{v}^{h}_{N} \in [0,1]^N)_{N \in \mathbb{N}}$ and a sequence of partitions $(\cP_{N}\coloneqq  \{ \cZ_{N,1},\dots, \cZ_{N,N} \})$ of $\cZ$, such that 
 \begin{gather}
 \ell(h, Z)\geq    \sum_{k=1}^N v^h_{N,k} \cdot \mathbbm{1}\{Z \in \cZ_{N,k} \}; \quad  \lim_{N \to \infty}   \sum_{k=1}^N  v^{h}_{N,k} \cdot \mathbbm{1}\{Z \in \cZ_{N,k} \} = \ell(h, Z) \\ \text{and} \quad \lim_{N \to \infty} \E_Z\left[ \sum_{k=1}^N  v^{h}_{N,k} \cdot \mathbbm{1}\{Z \in \cZ_{N,k} \}\right] = \E[\ell(h, Z)]
 \end{gather}
