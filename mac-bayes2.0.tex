@@ -168,7 +168,97 @@ Given a loss function $\ell\colon \cH \times \cZ \rightarrow \reals$, we denote 
 	\end{gather}
 \end{theorem}
 
+\section{Comparing LOO-KL with Full-KL}
+In this section, we compare the magnitude of the Leave-One-Out $\KL$ (LOO-KL) and the full $\KL$ in two different settings. We will make use of the following well-known fact about the $\KL$-divergence between two multivariate Gaussian distributions $P \equiv \cN(\mu_P, \Sigma_P)$ and $Q\equiv \cN(\mu_Q, \Sigma_Q)$:
+\begin{align}
+\KL(P \| Q) = \frac{1}{2} \left(\log \frac{| \Sigma_Q |}{|\Sigma_P|} - d + \text{\sc trace}\left( \Sigma_Q^{-1} \Sigma_P \right)    + (\mu_Q-\mu_P)^{\transpose} \Sigma_Q^{-1} (\mu_Q - \mu_P) \right). \label{eq:KLexpress}
+\end{align}
+ \subsection{Density Estimation with a Multivariate Gaussian Statistical Model}
+Consider i.i.d.~random vectors $Z_1, \ldots Z_n \in \reals^d$ and a prior/posterior on a multivariate normal
+statistical model, $\{P_{\mu} : \mu \in \reals^d \}$ with diagonal
+covariance matrix $\Sigma = \sigma^2 {I}_d$, for some fixed $\sigma^2 > 0$. We will assume further that the model is correct, \emph{i.e.} the $Z_i$ are i.i.d.~according to some $p_{\mu}$ with unknown $\mu$.
 
+
+To analyze the multivariate KL, we first note some immediate properties for the univariate case; for $m \in \mathbb{N}$, let $\hat{\mu}_m$ be the maximum likelihood estimator based on i.i.d.~$X_1, \ldots, X_m\in \reals$ distributed as $N(\mu,\sigma^2)$. 
+We trivially have  $\hat{\mu}_{n} = X_{n}/n + ((n-1)/n) \hat{\mu}_{n-1}$ so that, after rearranging,
+\begin{equation}\label{eq:mlebasics0}
+\hat{\mu}_n - \hat{\mu}_{n-1} = \frac{1}{n} \cdot \left( X_n -  \hat{\mu}_{n-1}\right).
+\end{equation}  
+Also, we have
+\begin{align}\label{eq:mleadvanced0}
+{\bf E}_{X \sim P_{\mu}}\left[(X_n - \hat{\mu}_{n-1})^2\right]
+& =
+{\bf E}_{X \sim P_{\mu}}\left[((X_n - \mu) + (\mu - \hat{\mu}_{n-1}))^2\right] 
+\nonumber\\ & =  {\bf E}_{X \sim P_{\mu}}\left[(X_n - \mu)^2 + (\mu - \hat{\mu}_{n-1})^2\right]
+\\ &= \sigma^2 + \frac{\sigma^2}{n-1} = \frac{n}{n-1} \cdot \sigma^2.
+\end{align}
+where the second equality follows by independence of $X_n$ and $\hat{\mu}_{n-1}$ and the fact that ${\bf E}[X_n] = \mu$. 
+
+Now we go back to the multivariate case; $\hat{\mu}_m \coloneqq (\hat \mu_{m,1}, \dots, \hat\mu_{m,d})\in \reals^d$ now stands for the MLE/least squares estimator; that is, $\hat\mu_m = \frac{1}{m} \sum_{i=1}^m Z_i$.
+
+We will now apply this to our model, with $\hro^m= \hro(Z^n)$ a distribution
+centered around the ERM $\hat{\mu}_m$ with diagonal covariance matrix
+with entries $\gamma_m \sigma^2$. First, define the function
+$g\colon \reals_{>0} \rightarrow \reals$ by $g(u) = - \log u + u-1$ and
+note that $g(1) = 0$, (by differentiation) $g(u) > 0$ if $u \neq 1$
+and, for integer $n$, $g((n-1)/n) = O(1/n^2)$.
+
+\paragraph{The LOO-KL case.} Let $m=n \in \mathbb{N}$ and define $\alpha \coloneqq \gamma_n/\gamma_{n-1}$. From \eqref{eq:KLexpress}, we get
+\begin{align}
+\KL(\hro^n \| \hro^{n-1}) & = \frac{1}{2} \left(\log \frac{| (\gamma_{n-1} \cdot \sigma^2)^d |}{
+	(\gamma_n \sigma^2)^d} - d + d
+\cdot \frac{\gamma_n}{\gamma_{n-1}}
++ \sum_{j=1}^d \frac{(\hat{\mu}_{n,j} - \hat{\mu}_{n-1,j})^2}{\gamma_{n-1} \sigma^2}\right) \nonumber \\ 
+& =  \frac{1}{2} \left( d \cdot g(\alpha) + \sum_{j=1}^d \frac{(\hat{\mu}_{n,j} - \hat{\mu}_{n-1,j})^2}{ \gamma_{n-1} \sigma^2}\right) \nonumber \\
+& =  \frac{1}{2} \left( d \cdot g(\alpha) + \sum_{j=1}^d \frac{(X_{n,j} - \hat{\mu}_{n-1,j})^2}{n^2 \cdot \gamma_{n-1} \sigma^2}\right),                       \nonumber
+\end{align}
+where in the first inequality we used (\ref{eq:mlebasics0}).
+We thus have, using (\ref{eq:mleadvanced0}), 
+\begin{align*}
+{\bf E}_{Z^n \sim P_{\mu}}  \left[  \KL(\hro^n \| \hro^{n-1})  \right]   =  \frac{d}{2} \left(
+g(\alpha) + \frac{1}{ \gamma_{n-1} \cdot n \cdot (n-1)}\right)
+\end{align*}
+so that for $\hro \coloneqq \hro^n= \hro(Z^n)$ and $\hro_i \coloneqq \hro(Z^{n}_{\smallsetminus i})$, we get 
+\begin{align}
+{\bf E}_{Z^n \sim P_{\mu}}  \left[  \sum_{i=1}^n \KL(\hro \| \hro_{i}) \right]
+=  \frac{d}{2} \left(n \cdot g(\alpha)  +
+\frac{1}{\gamma_{n-1}} \cdot \frac{1}{n-1} \right)
+\label{eq:sumKLs0}
+\end{align}
+We note that, for given $\gamma_n$, this is minimized if we take
+$\gamma_n = \gamma_{n-1}$ so that $\alpha=1$ and $g(\alpha)=0$.
+
+\paragraph{The Full-KL case.} Now, a similar analysis for the classic $\KL(\hro \| \ro_0)$ for proper prior $\ro_0$ centered at the {\em correct\/} $\mu$ and diagonal covariance matrix with entries $\sigma^2$, shows that it is of order $d (\log n)$; if the prior $\ro_0$ is centered at the wrong $\mu$, it can only get larger.
+\commentout{ If we take
+the `real' Bayesian posteriors (explained below), we would get $\gamma_{n-1} = 1/{n-1}$
+and $\gamma_n = 1/n$. This might {\em not\/} be the optimal choice for
+our purposes --- since by having $\gamma_{n-1}$ larger (say,
+$1/\sqrt{n}$?) we may be able to deal with dimensionality $d \gg n$.
+But it does make the term $n g(\alpha)$ equal to
+$n g((n-1)/n) = O(1/n)$, so that one remains negligible.
+
+
+
+Now let's contrast this with the case where we base the prior on the first half of the sample, as in our Neurips 2019 paper. Denoting the MLE based on the second half of the sample $Z_{n/2+1}, \ldots, Z_n$  by $\hat{\mu}_{n/2+1:n}$, and now setting $\alpha := \gamma_n/\gamma_{n/2}$, we then  get 
+\begin{align}\label{eq:forlater0}
+\KL(\hat{\Pi}_n \| \hat{\Pi}_{n/2}) & = 
+\frac{1}{2} \left(d
+\cdot g(\alpha)
++ \sum_{j=1}^d \frac{(\hat{\mu}_{n/2+1:n,j} - \hat{\mu}_{n/2,j})^2}{4 \gamma_{n/2} \cdot \sigma^2}\right)
+\end{align}
+by a similar calculation as above. Taking expectations now gives for the 2-fold complexity: 
+\begin{align*}
+& {\bf E}_{Z^n \sim P_{\mu}} \left[\sum_{k=0}^1 \KL(\hat{\Pi}_n \| \hat{\Pi}_{|Z_{k \cdot n/2 +1 }, \ldots, Z_{k \cdot n/2 + n/2}})\right] =    2 {\bf E}_{Z^n \sim P_{\mu}} \left[\KL(\hat{\Pi}_n \| \hat{\Pi}_{n/2})\right] \\
+& = d \cdot g(\alpha) + \sum_{j=1}^d {\bf E}_{Z^n \sim P_{\mu}} \left[\frac{
+	((\hat{\mu}_{n/2+1:n,j} - \mu ) + (\mu-  \hat{\mu}_{n/2,j}))^2}{4 \gamma_{n/2} \cdot \sigma^2}\right] \\& =  d \cdot
+\left(g(\alpha)  +
+\frac{1}{\gamma_{n/2}} \cdot \frac{1}{n}\right).
+\end{align*}
+Note that the dependence on $g(\alpha)$ is much better (no factor $n$); but this doesn't matter since for the optimal $\alpha$ $g(\alpha) =0$ and the term falls out; we then see that the two-fold KL is approximately a factor of 2 larger than the LOO-KL. 
+
+
+
+So we do find a {\em significant\/} advantage of using the two-fold KL rather than the standard KL (order $d$ vs $d \log n$) and another {\em significant\/} advantage of using the leave-one-out KL rather than the two-fold KL (order $1 + d/n$ rather than order $d$).}
 
 \section{Detailed Analysis}
 \paragraph{ESI Notation.} Let $\eta>0$, and $X$, $Y$ be any two random variables. We define
